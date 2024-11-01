@@ -1,9 +1,4 @@
-import {
-  Flex,
-
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Stack, Text } from "@chakra-ui/react";
 import { useAppCtx } from "../../../contexts/app.context";
 import { brandColors } from "../../../theme/app.theme";
 import Btn from "../../Buttons/Btn";
@@ -15,15 +10,12 @@ const AgentTip = () => {
 
   return (
     <Stack
-      //   pos={"absolute"}
       w={"100%"}
-      // bg={brandColors.bg}
       bg={brandColors.primary100}
       zIndex={1}
       top={"-150px"}
       left={0}
       border={`1px solid ${brandColors.stroke}`}
-      // borderRadius={"15px"}
       p={4}
       boxShadow={" 3px 3px 0px 0px rgba(30, 52, 69, 1);"}
       visibility={showTipAgent ? "visible" : "hidden"}

@@ -22,32 +22,32 @@ const Btn = ({ children ,
     
     onClick={cta}
     >
-      {/* <Flex
+      <Flex
         gap={0}
         cursor={"pointer"}
         position={"absolute"}
-        w={"99%"}
-        left={1}
-        bottom={-1}
+        w={"100%"}
+        left={"2px"}
+        bottom={"-3px"}
         // right={-2}
         zIndex={-10}
       >
-        <CLIPARTS.BoxLeftFill h="100%" w="13px" />
+        <CLIPARTS.BoxLeftFill h="100%" w="13px"  fill={color}/>
 
         <Stack
-          px={4}
+          px={px ?? 4}
           w={"100%"}
           borderY={`4px solid ${brandColors.stroke}`}
           h={"auto"}
           align={"center"}
           justify={"center"}
-          bg={brandColors.secondary}
+          bg={ color ?? brandColors.secondary}
         >
           {
             <Text
               fontWeight={800}
               css={{ textTransform: "uppercase" }}
-              fontSize={".9rem"}
+              fontSize={fontSize??".9rem"}
               color={brandColors.white}
             >
               {" "}
@@ -55,8 +55,8 @@ const Btn = ({ children ,
             </Text>
           }
         </Stack>
-        <CLIPARTS.BoxRightFill h="100%" w="13px" />
-      </Flex> */}
+        <CLIPARTS.BoxRightFill h="100%" w="13px" fill={color} />
+      </Flex>
 
       <Flex gap={0} w={"99%"}>
         <CLIPARTS.BoxLeftFill h="100%" w="13px"  fill={color}/>

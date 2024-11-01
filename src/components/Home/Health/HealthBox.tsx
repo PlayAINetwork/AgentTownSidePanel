@@ -3,6 +3,7 @@ import Btn from "../../Buttons/Btn";
 import { assets } from "../../../assets";
 import { healtList } from "../../../DB";
 import { useAppCtx } from "../../../contexts/app.context";
+import CLIPARTS from "../../../assets/clipart";
 
 const HealthBox = () => {
   return (
@@ -29,12 +30,14 @@ const HealthItem = ({ data }: { data: any }) => {
             {data?.title}
           </Text>
           <Flex gap={1.5}>
-            <Image src={assets.ICONS.icon_hartfill} />
-            <Image src={assets.ICONS.icon_hartfill} />
-            <Image src={assets.ICONS.icon_hartfill} />
-            <Image src={assets.ICONS.icon_hart} />
-            <Image src={assets.ICONS.icon_hart} />
-            <Image src={assets.ICONS.icon_hart} />
+            <CLIPARTS.Hart  isActive />
+            <CLIPARTS.Hart isActive />
+            <CLIPARTS.Hart  />
+            <CLIPARTS.Hart  />
+            <CLIPARTS.Hart  />
+            <CLIPARTS.Hart  />
+
+           
           </Flex>
         </Stack>
       </Flex>
