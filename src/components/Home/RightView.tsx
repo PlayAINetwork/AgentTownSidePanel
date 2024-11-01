@@ -23,14 +23,14 @@ import { useAppCtx } from "../../contexts/app.context";
 import GlobalChatBox from "./Global/GlobalChatBox";
 import TerminalBox from "./Terminal/TerminalBox";
 import HealthBox from "./Health/HealthBox";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import InputTeb from "../Input/Input";
 import Btn from "../Buttons/Btn";
 import { trimWords } from "../../lib/app.fun";
 import Revive from "./Health/Revive";
 
 const RightView = () => {
-  const { showTipAgent, setsTipAgent, sectionType, setSectionType } =
+  const { showTipAgent, setsTipAgent, sectionType, setSectionType ,selectedRevaiveItem,setGlobalMessages, globalMessages} =
     useAppCtx();
 
   const { setVisible: setModalVisible } = useWalletModal();
@@ -46,6 +46,13 @@ const RightView = () => {
     } else return null;
   }, [publicKey]);
 
+  const [inputvalue, setInputValue] = useState('');
+  const handleSend = () => {
+    if (inputvalue.trim()) {
+      setGlobalMessages([...globalMessages, {name:connectedSolAddress ,message:inputvalue}]);
+      setInputValue(''); // Clear the input after sending
+    }
+  };
   return (
     <Flex
       border={`0.5px solid ${brandColors.stroke}`}
@@ -123,16 +130,18 @@ const RightView = () => {
 
       <Stack pos={"relative"} px={4} pb={2}>
         { buttonState === "connected"&& showTipAgent && sectionType == "global" ? <AgentTip /> : null}
-        {buttonState === "connected"  && sectionType == "health" ? <Revive /> : null}
+        {buttonState === "connected"  && sectionType == "health" && selectedRevaiveItem?.title  ? <Revive /> : null}
 
         {buttonState === "connected" &&
         (sectionType == "global" || sectionType == "bribe") ? (
           <Flex w={"100%"} gap={1} align={"center"}>
             <Stack flex={2}>
-              <InputTeb />
+              <InputTeb inputvalue={inputvalue} setInputValue={setInputValue} />
             </Stack>
             <Stack flex={1}>
-            <Btn>send</Btn>
+            <Btn
+            cta={()=>handleSend()}
+            >send</Btn>
 
             </Stack>
             {!showTipAgent && sectionType == "global" ? (

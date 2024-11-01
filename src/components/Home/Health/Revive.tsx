@@ -1,17 +1,18 @@
 import {
   Flex,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
+  Progress,
+
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { brandColors } from "../../../theme/app.theme";
 import Btn from "../../Buttons/Btn";
-import InputTeb from "../../Input/Input";
+import { useAppCtx } from "../../../contexts/app.context";
+import InputGropedTab from "../../Input/InputGropedTab";
 
 const Revive = () => {
+  const {  selectedRevaiveItem } = useAppCtx();
+
   return (
     <Stack
       //   pos={"absolute"}
@@ -28,27 +29,27 @@ const Revive = () => {
 
       //   visibility={showTipAgent ? "visible" : "hidden"}
     >
-      <Text mb={3} fontWeight={800}>Revive GIGA</Text>
+      <Text mb={3} fontWeight={800}>Revive {selectedRevaiveItem?.title}</Text>
       <Stack gap={2}>
-        <Slider aria-label="slider-ex-4" defaultValue={30}>
+        {/* <Slider aria-label="slider-ex-4" defaultValue={30}>
           <SliderTrack bg={brandColors.primary200} h={6}>
             <SliderFilledTrack bg={brandColors.secondary}  />
           </SliderTrack>
           <SliderThumb boxSize={6} borderRadius={0}>
-            {/* <Box color='tomato' as={MdGraphicEq} /> */}
           </SliderThumb>
-        </Slider>
+        </Slider> */}
+          <Progress fill={brandColors.secondary} bg={brandColors.primary200} size='lg' value={20} />
         <Flex justify={"space-between"}>
           <Text fontWeight={700}>99k left</Text>
           <Text fontWeight={700}>1m to revive</Text>
         </Flex>
       </Stack>
-      <Flex gap={2}>
+      <Flex gap={2} mt={4}>
         <Flex flex={1}>
-          <InputTeb></InputTeb>
+        <InputGropedTab  />
         </Flex>
         <Stack flex={1}>
-          <Btn>send</Btn>
+          <Btn>Add to Revive</Btn>
         </Stack>
       </Flex>
     </Stack>

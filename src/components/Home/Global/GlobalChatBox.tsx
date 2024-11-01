@@ -1,41 +1,24 @@
 import { Flex, Stack, Text } from '@chakra-ui/react'
+import { useAppCtx } from '../../../contexts/app.context';
+import { trimWords } from '../../../lib/app.fun';
 
 
 const GlobalChatBox = () => {
+  const { globalMessages} =
+  useAppCtx();
   return (
     <Stack  >
-         <Flex  align={"center"} gap={2}>
-          <Text fontWeight={700} fontSize={"md"} >dfds...fdsfd :</Text>
-          <Text fontSize={"sm"} fontWeight={400}>gm gm</Text>
-        </Flex>
-        <Flex  align={"center"} gap={2}>
-          <Text fontWeight={700} fontSize={"md"} >dfds...fdsfd :</Text>
-          <Text fontSize={"sm"} fontWeight={400}>gm gm</Text>
-        </Flex>
-        <Flex  align={"center"} gap={2}>
-          <Text fontWeight={700} fontSize={"md"} >dfds...fdsfd :</Text>
-          <Text fontSize={"sm"} fontWeight={400}>gm gm</Text>
-        </Flex>
-        <Flex  align={"center"} gap={2}>
-          <Text fontWeight={700} fontSize={"md"} >dfds...fdsfd :</Text>
-          <Text fontSize={"sm"} fontWeight={400}>gm gm</Text>
-        </Flex>
-        <Flex  align={"center"} gap={2}>
-          <Text fontWeight={700} fontSize={"md"} >dfds...fdsfd :</Text>
-          <Text fontSize={"sm"} fontWeight={400}>gm gm</Text>
-        </Flex>
-        <Flex  align={"center"} gap={2}>
-          <Text fontWeight={700} fontSize={"md"} >dfds...fdsfd :</Text>
-          <Text fontSize={"sm"} fontWeight={400}>gm gm</Text>
-        </Flex>
-        <Flex  align={"center"} gap={2}>
-          <Text fontWeight={700} fontSize={"md"} >dfds...fdsfd :</Text>
-          <Text fontSize={"sm"} fontWeight={400}>gm gm</Text>
-        </Flex>
-        <Flex  align={"center"} gap={2}>
-          <Text fontWeight={700} fontSize={"md"} >dfds...fdsfd :</Text>
-          <Text fontSize={"sm"} fontWeight={400}>gm gm</Text>
-        </Flex>
+
+
+{globalMessages.map((message:any) => (
+        
+<Flex  align={"center"} gap={2}>
+<Text fontWeight={700} fontSize={"md"} >            {trimWords(message?.name, 4)}:</Text>
+<Text fontSize={"sm"} fontWeight={400}> {message?.message}</Text>
+</Flex>
+        ))}
+       
+       
     </Stack>
   )
 }

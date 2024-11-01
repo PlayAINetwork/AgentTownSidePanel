@@ -1,11 +1,9 @@
-import { brandColors } from '../../theme/app.theme'
-import { Flex, Input, Stack } from '@chakra-ui/react'
+import { Flex, Input, InputGroup, InputRightElement, Stack, Text } from '@chakra-ui/react'
 import CLIPARTS from '../../assets/clipart'
+import { brandColors } from '../../theme/app.theme'
 
-const InputTeb = ({inputvalue, setInputValue}:{inputvalue:string,setInputValue:any}) => {
+const InputGropedTab = () => {
   return (
-   
-   
     <Flex gap={0}
     
     w={"100%"}
@@ -20,24 +18,35 @@ const InputTeb = ({inputvalue, setInputValue}:{inputvalue:string,setInputValue:a
         align={"center"}
         justify={"center"}
       >
-       <Input
+
+<InputGroup>
+          <InputRightElement pointerEvents="none" w={"4rem"}>
+            <Text
+              fontWeight={800}
+            
+            > $host</Text>
+          </InputRightElement>
+          <Input
+              border={"none"}
+       px={1}
+       fontWeight={800}
+          
+          type="number" placeholder="00" />
+        </InputGroup>
+       {/* <Input
        w={"100%"}
        px={1}
-       value={inputvalue}
-       onChange={(e) => setInputValue(e.target.value)}
+   
               borderColor={brandColors.stroke}
               border={"none"}
               fontWeight={800}
               // type={show ? 'text' : 'password'}
               placeholder="Enter your message "
-            />
+            /> */}
       </Stack>
       <CLIPARTS.BoxRight h="100%" w="12px" />
     </Flex>
-
-            
-           
   )
 }
 
-export default InputTeb
+export default InputGropedTab
