@@ -4,16 +4,16 @@ import "./index.css";
 import AppProvider from "./components/Providers/AppProvider";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/routes";
-import { SolWalletProvider } from "./contexts/sol.context";
+import { EvmWalletProvider } from "./components/Providers/EvmWalletProvider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
 
     <AppProvider>
-      <SolWalletProvider>
+      <EvmWalletProvider>
 
       <RouterProvider router={router} />
-      </SolWalletProvider>
+      </EvmWalletProvider>
     </AppProvider>
   </StrictMode>
 );

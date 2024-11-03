@@ -1,5 +1,5 @@
 import {   Flex, Stack, Text } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { brandColors } from "../../theme/app.theme";
 import CLIPARTS from "../../assets/clipart";
 
@@ -12,13 +12,19 @@ const TabBtn = ({
   cta?: () => void;
   isActive: boolean;
 }) => {
+  const [hover, setHover] = useState(false)
+
   return (
-    <Stack onClick={cta} cursor={"pointer"} position={"relative"}>
+    <Stack 
+    
+    onMouseEnter={()=>setHover(true)}
+    onMouseLeave={()=>setHover(false)}
+    onClick={cta} cursor={"pointer"} position={"relative"}>
       <Flex
         gap={0}
         position={"absolute"}
-        top={isActive ? -1 : 0}
-        left={isActive ? -1.5 : 0}
+        top={hover ? -1 : 0}
+        left={hover ? -1.5 : 0}
       >
         <CLIPARTS.LeftSideBtn h="100%" w="10px" color={isActive ?brandColors.primary400: brandColors.primary200} />
         <Stack

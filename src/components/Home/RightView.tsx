@@ -13,9 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { assets } from "../../assets";
 import TabBtn from "../Buttons/TabBtn";
-import { SolWalletConnectBtn } from "../Buttons/SolConnectBTN";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { category } from "../../DB";
 import { brandColors } from "../../theme/app.theme";
 import AgentTip from "./Global/AgentTip";
@@ -23,33 +20,27 @@ import { useAppCtx } from "../../contexts/app.context";
 import GlobalChatBox from "./Global/GlobalChatBox";
 import TerminalBox from "./Terminal/TerminalBox";
 import HealthBox from "./Health/HealthBox";
-import { useMemo, useState } from "react";
+import {  useState } from "react";
 import InputTeb from "../Input/Input";
 import Btn from "../Buttons/Btn";
 import { trimWords } from "../../lib/app.fun";
 import Revive from "./Health/Revive";
+import { useAppKitAccount, useDisconnect } from "@reown/appkit/react";
+import EVMConnectBTN from "../Buttons/EVMConnectBTN";
 
 const RightView = () => {
+  const { address , isConnected } = useAppKitAccount()
+  const { disconnect } = useDisconnect()
   const { showTipAgent, setsTipAgent, sectionType, setSectionType ,selectedRevaiveItem,setGlobalMessages, globalMessages} =
     useAppCtx();
 
-  const { setVisible: setModalVisible } = useWalletModal();
-  const { buttonState, publicKey, onDisconnect } =
-    useWalletMultiButton({
-      onSelectWallet() {
-        setModalVisible(true);
-      },
-    });
-  const connectedSolAddress = useMemo(() => {
-    if (publicKey) {
-      return publicKey.toBase58();
-    } else return null;
-  }, [publicKey]);
+  
+ 
 
   const [inputvalue, setInputValue] = useState('');
   const handleSend = () => {
     if (inputvalue.trim()) {
-      setGlobalMessages([...globalMessages, {name:connectedSolAddress ,message:inputvalue}]);
+      setGlobalMessages([...globalMessages, {name:address ,message:inputvalue}]);
       setInputValue(''); // Clear the input after sending
     }
   };
@@ -73,7 +64,7 @@ const RightView = () => {
         boxShadow={` 3px 3px 0px 0px ${brandColors.stroke};`}
       >
         <Image src={assets.LOGOS.logo} w={"80px"} />
-        {buttonState === "connected" ? (
+        {isConnected ? (
           <Popover>
             <PopoverTrigger>
               <WrapItem cursor={"pointer"}>
@@ -86,9 +77,9 @@ const RightView = () => {
               <PopoverContent w={"max-content"} p={3} bg={brandColors.primary700}>
                 <PopoverArrow />
                <Stack>
-               <Text color={brandColors.stroke} fontWeight={700}>{trimWords(connectedSolAddress?.toString(), 6)}</Text>
+               <Text color={brandColors.stroke} fontWeight={700}>{trimWords(address?.toString(), 6)}</Text>
                 <Btn
-                cta={onDisconnect}
+                cta={disconnect}
                 fontSize="14px"
                 >Disconnect</Btn>
                </Stack>
@@ -129,10 +120,10 @@ const RightView = () => {
       </Stack>
 
       <Stack pos={"relative"} px={4} pb={2}>
-        { buttonState === "connected"&& showTipAgent && sectionType == "global" ? <AgentTip /> : null}
-        {buttonState === "connected"  && sectionType == "health" && selectedRevaiveItem?.title  ? <Revive /> : null}
+        { isConnected && showTipAgent && sectionType == "global" ? <AgentTip /> : null}
+        {isConnected  && sectionType == "health" && selectedRevaiveItem?.title  ? <Revive /> : null}
 
-        {buttonState === "connected" &&
+        {isConnected &&
         (sectionType == "global" || sectionType == "bribe") ? (
           <Flex w={"100%"} gap={1} align={"center"}>
             <Stack flex={2}>
@@ -160,7 +151,7 @@ const RightView = () => {
             </Button> */}
           </Flex>
         ) : null}
-        {buttonState !== "connected" ? <SolWalletConnectBtn /> : null}
+        {!isConnected ? <EVMConnectBTN /> : null}
 
         <Flex justify={"space-between"} fontFamily={"secondary"}>
           <Flex align={"center"} gap={0}>

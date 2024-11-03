@@ -1,5 +1,5 @@
 import { Flex, Stack, Text } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import CLIPARTS from "../../assets/clipart";
 import { brandColors } from "../../theme/app.theme";
 
@@ -16,10 +16,14 @@ const Btn = ({ children ,
   px?:string| number;
 
 }) => {
+  const [hover, setHover] = useState(false)
   return (
     <Stack pos={"relative"}
     cursor={"pointer"}
-    
+
+    onMouseEnter={()=>setHover(true)}
+    onMouseLeave={()=>setHover(false)}
+
     onClick={cta}
     >
       <Flex
@@ -27,8 +31,8 @@ const Btn = ({ children ,
         cursor={"pointer"}
         position={"absolute"}
         w={"100%"}
-        left={"2px"}
-        bottom={"-3px"}
+        left={hover?"2px":0}
+        bottom={hover?"-3px":0}
         // right={-2}
         zIndex={-10}
       >
