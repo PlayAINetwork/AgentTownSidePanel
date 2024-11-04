@@ -37,11 +37,11 @@ createAppKit({
   allowUnsupportedChain: false,
   metadata,
   themeVariables: {
-    "--w3m-font-family": "Gen_Sans",
-    "--w3m-color-mix": "hsl(226, 21%, 12%)",
-    "--w3m-accent": "hsl(228, 100%, 60%)",
-    "--w3m-color-mix-strength": 30,
-    "--w3m-border-radius-master": "5px",
+    // "--w3m-font-family": "Gen_Sans",
+    // "--w3m-color-mix": "hsl(226, 21%, 12%)",
+    // "--w3m-accent": "hsl(228, 100%, 60%)",
+    // "--w3m-color-mix-strength": 30,
+    // "--w3m-border-radius-master": "5px",
     "--w3m-z-index": 999999999,
   },
   features: {

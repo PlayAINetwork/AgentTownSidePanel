@@ -25,6 +25,8 @@ const TabBtn = ({
         position={"absolute"}
         top={hover ? -1 : 0}
         left={hover ? -1.5 : 0}
+        transition={"all .3s"}
+
       >
         <CLIPARTS.LeftSideBtn h="100%" w="10px" color={isActive ?brandColors.primary400: brandColors.primary200} />
         <Stack

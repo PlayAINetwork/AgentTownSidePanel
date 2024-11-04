@@ -32,11 +32,13 @@ const EVMConnectBTN = () => {
       <Flex gap={0}
        cursor={"pointer"}
        position={"absolute"}
-       w={"99%"}
-       left={hover?1:0}
-       bottom={hover?-1:0}
+       w={"100%"}
+       right={hover?1:0}
+       top={hover?-1:0}
        // right={-2}
-       zIndex={-10}
+       zIndex={10}
+       transition={"all .3s"}
+
       
       >
         <Stack>

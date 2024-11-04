@@ -29,12 +29,15 @@ const Btn = ({ children ,
       <Flex
         gap={0}
         cursor={"pointer"}
+
         position={"absolute"}
-        w={"100%"}
-        left={hover?"2px":0}
-        bottom={hover?"-3px":0}
-        // right={-2}
-        zIndex={-10}
+         w={"100%"}
+         left={hover?"-2px":0}
+         top={hover?"-3px":0}
+        //  right={-2}
+         zIndex={10}
+         transition={"all .3s"}
+       
       >
         <CLIPARTS.BoxLeftFill h="100%" w="13px"  fill={color}/>
 
@@ -62,8 +65,10 @@ const Btn = ({ children ,
         <CLIPARTS.BoxRightFill h="100%" w="13px" fill={color} />
       </Flex>
 
-      <Flex gap={0} w={"99%"}>
-        <CLIPARTS.BoxLeftFill h="100%" w="13px"  fill={color}/>
+      <Flex gap={0} w={"99%"}
+      
+      >
+        <CLIPARTS.BoxLeftFill h="100%" w="13px"  fill={ brandColors.stroke}/>
 
         <Stack
           px={px ?? 4}
@@ -72,7 +77,7 @@ const Btn = ({ children ,
           h={"auto"}
           align={"center"}
           justify={"center"}
-          bg={ color ?? brandColors.secondary}
+          bg={   brandColors.stroke}
         >
           {
             <Text
@@ -86,7 +91,7 @@ const Btn = ({ children ,
             </Text>
           }
         </Stack>
-        <CLIPARTS.BoxRightFill h="100%" w="13px" fill={color} />
+        <CLIPARTS.BoxRightFill h="100%" w="13px" fill={ brandColors.stroke} />
       </Flex>
     </Stack>
   );
