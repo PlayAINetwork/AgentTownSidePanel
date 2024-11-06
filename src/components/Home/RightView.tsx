@@ -27,6 +27,7 @@ import { trimWords } from "../../lib/app.fun";
 import Revive from "./Health/Revive";
 import { useAppKitAccount, useDisconnect } from "@reown/appkit/react";
 import EVMConnectBTN from "../Buttons/EVMConnectBTN";
+import BriveBox from "./Bribe/BriveBox";
 
 const RightView = () => {
   const { address , isConnected } = useAppKitAccount()
@@ -111,7 +112,11 @@ const RightView = () => {
         >
           {sectionType == "global" ? (
             <GlobalChatBox />
-          ) : sectionType == "health" ? (
+          ): sectionType == "bribe" ? (
+            <BriveBox />
+          ) 
+          
+          : sectionType == "health" ? (
             <HealthBox />
           ) : sectionType == "terminal" ? (
             <TerminalBox />
@@ -124,7 +129,7 @@ const RightView = () => {
         {isConnected  && sectionType == "health" && selectedRevaiveItem?.title  ? <Revive /> : null}
 
         {isConnected &&
-        (sectionType == "global" || sectionType == "bribe") ? (
+        (sectionType == "global" ) ? (
           <Flex w={"100%"} gap={1} align={"center"}>
             <Stack flex={2}>
               <InputTeb inputvalue={inputvalue} setInputValue={setInputValue} />
@@ -150,7 +155,19 @@ const RightView = () => {
               send
             </Button> */}
           </Flex>
-        ) : null}
+        ) :
+        isConnected &&
+        (sectionType == "bribe") ?
+        
+        <Stack flex={1}>
+               <Btn
+                cta={() => setsTipAgent(true)}
+              >
+                Pay to Bribe
+              </Btn>
+             </Stack>
+        :
+        null}
         {!isConnected ? <EVMConnectBTN /> : null}
 
         <Flex justify={"space-between"} fontFamily={"secondary"}>

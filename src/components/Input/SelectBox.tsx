@@ -3,7 +3,7 @@ import  { ReactNode } from 'react'
 import CLIPARTS from '../../assets/clipart'
 import { brandColors } from '../../theme/app.theme'
 
-const SelectBox = ({children}:{children: ReactNode}) => {
+const SelectBox = ({children,placeholder}:{children: ReactNode, placeholder?:string}) => {
   return (
     <Flex gap={0}
     
@@ -19,7 +19,7 @@ const SelectBox = ({children}:{children: ReactNode}) => {
         align={"center"}
         justify={"center"}
       >
-        <Select placeholder="Select option"
+        <Select placeholder={placeholder??"Select option"}
        border={"none"} 
        fontWeight={800}
         >
