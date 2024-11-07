@@ -17,6 +17,7 @@ const LeftSideBtn = ({
     height={h || "37px"}
     width={w || "9px"}
   >
+
     <path d="M6 0V3H3V6H0V31H3V34H6V37H9V0H6Z" fill={color ?? "#E4D5CE"} />
   </Box>
 );
@@ -356,6 +357,57 @@ const w = ({
 
 
 
+const BoxRightCard = ({
+  h,
+  w,
+  fill
+}: {
+  h?: string;
+  w?: string;
+
+  fill?:string | null
+  color?: string | null;
+}) => (
+  <Box
+    as="svg"
+    viewBox="0 0 24 68"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    height={h || "68px"}
+    width={w || "24px"}
+  >
+
+<path d="M8 68V62.9H16V57.8H24V10.2H16V5.1H8V0H0V68H8Z" fill={fill??"#D9D9D9"}/>
+
+  </Box>
+);
+
+const BoxLeftCard = ({
+  h,
+  w,
+  fill
+}: {
+  h?: string;
+  w?: string;
+
+  fill?:string | null
+  color?: string | null;
+}) => (
+  <Box
+    as="svg"
+    viewBox="0 0 24 68"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    height={h || "68px"}
+    width={w || "24px"}
+  >
+
+<path d="M16 0V5.1H8V10.2H0V57.8H8V62.9H16V68H24V0H16Z" fill={fill??"#D9D9D9"}/>
+
+  </Box>
+);
+
+
 const CLIPARTS = {
   w,
   LeftSideBtn,
@@ -369,7 +421,9 @@ const CLIPARTS = {
   BottomRigntW,
   BoxRightFill,
   BoxLeftFill,
-  Hart
+  Hart,
+  BoxLeftCard,
+  BoxRightCard
 
 
 

@@ -1,14 +1,19 @@
-import { Flex, Select, Stack } from '@chakra-ui/react'
-import  { ReactNode } from 'react'
-import CLIPARTS from '../../assets/clipart'
-import { brandColors } from '../../theme/app.theme'
+import { Flex, Select, Stack } from "@chakra-ui/react";
+import { ReactNode } from "react";
+import CLIPARTS from "../../assets/clipart";
+import { brandColors } from "../../theme/app.theme";
 
-const SelectBox = ({children,placeholder}:{children: ReactNode, placeholder?:string}) => {
+const SelectBox = ({
+  children,
+  placeholder,
+  align
+}: {
+  children: ReactNode;
+  placeholder?: string;
+  align?:any
+}) => {
   return (
-    <Flex gap={0}
-    
-    w={"100%"}
-    >
+    <Flex gap={0} w={"100%"}>
       <Stack>
         <CLIPARTS.BoxLeft h="100%" w="12px" />
       </Stack>
@@ -19,20 +24,19 @@ const SelectBox = ({children,placeholder}:{children: ReactNode, placeholder?:str
         align={"center"}
         justify={"center"}
       >
-        <Select placeholder={placeholder??"Select option"}
-       border={"none"} 
-       fontWeight={800}
+        <Select
+          placeholder={placeholder ?? "Select option"}
+          border={"none"}
+          fontWeight={800}
+          fontSize={"sm"}
+          textAlign={align ?? "start"}
         >
-            {
-                children
-            }
-         
+          {children}
         </Select>
       </Stack>
       <CLIPARTS.BoxRight h="100%" w="12px" />
     </Flex>
+  );
+};
 
-  )
-}
-
-export default SelectBox
+export default SelectBox;
