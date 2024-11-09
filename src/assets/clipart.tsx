@@ -156,7 +156,7 @@ const BoxRightFill = ({
     width={w || "9px"}
   >
 
-<path d="M3 0V3H6V6H9V31H6V34H3V37H0V0H3Z" fill={fill ?? "#F24E1E"}/>
+<path d="M3 0V3H6V6H9V31H6V34H3V37H0V0H3Z" fill={fill ?? "rgba(255, 109, 0, 1)"}/>
 <path d="M3 0V3H6V6H9V9H6H3V6H0V3V0H3Z"fill={color ?? "#1E3445"}/>
 <rect width="3" height="22" transform="matrix(-1 0 0 1 9 9)" fill={color ?? "#1E3445"}/>
 <path d="M3 40V37H6V34H9V31H6H3V34H0V37V40H3Z" fill={color ?? "#1E3445"}/>
@@ -185,7 +185,7 @@ const BoxLeftFill = ({
   >
 
 
-<path d="M6 0V3H3V6H0V31H3V34H6V37H9V0H6Z" fill={fill ?? "#F24E1E"}/>
+<path d="M6 0V3H3V6H0V31H3V34H6V37H9V0H6Z" fill={fill ?? "rgba(255, 109, 0, 1)"}/>
 <path d="M6 0V3H3V6H0V9H3H6V6H9V3V0H6Z" fill={color ?? "#1E3445"}/>
 <rect y="9" width="3" height="22" fill={color ?? "#1E3445"}/>
 <path d="M6 40V37H3V34H0V31H3H6V34H9V37V40H6Z" fill={color ?? "#1E3445"}/>

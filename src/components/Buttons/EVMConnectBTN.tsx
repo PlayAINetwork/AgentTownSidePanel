@@ -34,7 +34,7 @@ const EVMConnectBTN = () => {
        position={"absolute"}
        w={"100%"}
        right={hover?1:0}
-       top={hover?-1:0}
+       top={hover?"-3px":0}
        // right={-2}
        zIndex={10}
        transition={"all .3s"}
@@ -42,7 +42,7 @@ const EVMConnectBTN = () => {
       
       >
         <Stack>
-          <CLIPARTS.BoxLeftFill h="100%" w="13px" />
+          <CLIPARTS.BoxLeftFill h="100%" w="10px" />
         </Stack>
         <Stack
           px={4}
@@ -71,14 +71,14 @@ const EVMConnectBTN = () => {
             </Text>
           }
         </Stack>
-        <CLIPARTS.BoxRightFill h="100%" w="13px" />
+        <CLIPARTS.BoxRightFill h="100%" w="10px" />
       </Flex>
 
    
       
       <Flex gap={0} w={"99%"}>
         <Stack>
-          <CLIPARTS.BoxLeftFill h="100%" w="13px" />
+          <CLIPARTS.BoxLeftFill h="100%" w="10px" />
         </Stack>
         <Stack
           px={4}
@@ -87,7 +87,7 @@ const EVMConnectBTN = () => {
           h={"auto"}
           align={"center"}
           justify={"center"}
-          bg={brandColors.secondary}
+          bg={brandColors.stroke}
         >
           {
             <Text
@@ -104,7 +104,7 @@ const EVMConnectBTN = () => {
             </Text>
           }
         </Stack>
-        <CLIPARTS.BoxRightFill h="100%" w="13px" />
+        <CLIPARTS.BoxRightFill h="100%" w="10px" />
       </Flex>
     </Stack>
   )

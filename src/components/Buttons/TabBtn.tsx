@@ -13,7 +13,7 @@ const TabBtn = ({
   isActive: boolean;
 }) => {
   const [hover, setHover] = useState(false)
-
+const px = "12px"
   return (
     <Stack 
     
@@ -30,8 +30,9 @@ const TabBtn = ({
       >
         <CLIPARTS.LeftSideBtn h="100%" w="10px" color={isActive ?brandColors.primary400: brandColors.primary200} />
         <Stack
-          px={4}
-          h={"auto"}
+                         px={px}
+
+          // h={"auto"}
           align={"center"}
           justify={"center"}
           bg={isActive ?brandColors.primary400: brandColors.primary200}
@@ -53,8 +54,9 @@ const TabBtn = ({
       <Flex gap={0}>
         <CLIPARTS.LeftSideBtn h="100%" w="10px" color={brandColors.stroke} />
         <Stack
-          px={4}
-          h={"auto"}
+                  px={px}
+
+          // h={"auto"}
           align={"center"}
           justify={"center"}
           bg={brandColors.stroke}

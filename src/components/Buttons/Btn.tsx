@@ -42,7 +42,7 @@ const Btn = ({ children ,
         <CLIPARTS.BoxLeftFill h="100%" w="13px"  fill={color}/>
 
         <Stack
-          px={px ?? 4}
+          px={px ?? "12px"}
           w={"100%"}
           borderY={`4px solid ${brandColors.stroke}`}
           h={"auto"}
@@ -71,7 +71,7 @@ const Btn = ({ children ,
         <CLIPARTS.BoxLeftFill h="100%" w="13px"  fill={ brandColors.stroke}/>
 
         <Stack
-          px={px ?? 4}
+          px={px ?? "12px"}
           w={"100%"}
           borderY={`4px solid ${brandColors.stroke}`}
           h={"auto"}

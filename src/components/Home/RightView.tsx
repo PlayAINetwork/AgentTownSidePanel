@@ -58,6 +58,7 @@ const RightView = () => {
       gap={4}
       w={"30%"}
       h={"100%"}
+      // bg={"rgba(249, 249, 249, 1)"}
       flexDir={"column"}
       // px={4}
       // py={4}
@@ -71,7 +72,7 @@ const RightView = () => {
         py={5}
         boxShadow={` 3px 3px 0px 0px ${brandColors.stroke};`}
       >
-        <Image src={assets.LOGOS.logo} w={"80px"} />
+        <Image src={assets.LOGOS.logo} w={"130px"} />
         {isConnected ? (
           <Popover>
             <PopoverTrigger>
@@ -178,12 +179,12 @@ const RightView = () => {
 
         <Flex justify={"space-between"} fontFamily={"secondary"}>
           <Flex align={"center"} gap={0}>
-            <Text fontSize={"sm"} fontWeight={600} textTransform={"uppercase"}>
+            <Text fontSize={"sm"} fontWeight={500} textTransform={"uppercase"}>
               $host: $0.01
             </Text>
           </Flex>
 
-          <Button variant={"text"} fontSize={"sm"} fontWeight={600}>
+          <Button variant={"text"} fontSize={"sm"} fontWeight={500}>
             Learn More{" "}
           </Button>
         </Flex>

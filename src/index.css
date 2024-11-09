@@ -60,13 +60,14 @@
 
   --primary: #ffffff;
   --primary100: rgba(237, 212, 173, 0.2);
+  ;
   --primary200: rgba(228, 213, 206, 1);
-  --primary400: rgba(239, 211, 170, 1);
+  --primary400: rgba(213, 155, 91, 1);
 
-  --primary700: rgba(203, 184, 151, 1);
+  --primary700: #D59B5B;
   --text: rgba(30, 52, 69, 1);
 
-  --secondary: rgba(242, 78, 30, 1);
+  --secondary: rgba(255, 109, 0, 1);
   --bg: rgba(249, 249, 249, 1);
   --muted: #cbcbcb;
   --black: #000;

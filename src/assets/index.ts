@@ -1,5 +1,5 @@
 
-import logo from "./logos/Glasseslogo.png"
+import logo from "./logos/Group 185.png"
 import logo_solana from "./logos/solana.svg";
 
 

@@ -45,7 +45,7 @@ const HealthItem = ({ data }: { data: any }) => {
         <Stack align={"center"} justify={"center"}>
           {data?.btn ? (
             <Btn
-              px={2}
+              px={"5.5px"}
               fontSize={"12px"}
               // color={"rgba(29, 155, 240, 1)"}
               cta={() => setSelectedReviveItem(data)}
