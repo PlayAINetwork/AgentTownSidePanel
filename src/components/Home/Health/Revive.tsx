@@ -3,9 +3,11 @@ import { brandColors } from "../../../theme/app.theme";
 import Btn from "../../Buttons/Btn";
 import { useAppCtx } from "../../../contexts/app.context";
 import InputGropedTab from "../../Input/InputGropedTab";
+import { useState } from "react";
 
 const Revive = () => {
   const { selectedRevaiveItem } = useAppCtx();
+  const [amount, setAmount] = useState<any>(null);
 
   return (
     <Stack
@@ -35,7 +37,7 @@ const Revive = () => {
       </Stack>
       <Flex gap={2} mt={4}>
         <Flex flex={1}>
-          <InputGropedTab />
+          <InputGropedTab set={setAmount} value={amount}/>
         </Flex>
         <Stack flex={1}>
           <Btn>Add to Revive</Btn>

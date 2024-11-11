@@ -9,7 +9,7 @@ import {
 import CLIPARTS from "../../assets/clipart";
 import { brandColors } from "../../theme/app.theme";
 
-const InputGropedTab = () => {
+const InputGropedTab = ({set,value}:{set:any,value:number|string}) => {
   return (
     <Flex gap={0} w={"100%"}>
       <Stack>
@@ -29,9 +29,11 @@ const InputGropedTab = () => {
           <Input
             border={"none"}
             px={1}
+            value={value}
             fontWeight={800}
             type="number"
             placeholder="00"
+            onChange={(e)=>set(e.target.value)}
           />
         </InputGroup>
      

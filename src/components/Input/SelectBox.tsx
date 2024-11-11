@@ -6,11 +6,13 @@ import { brandColors } from "../../theme/app.theme";
 const SelectBox = ({
   children,
   placeholder,
-  align
+  align,
+  set
 }: {
   children: ReactNode;
   placeholder?: string;
   align?:any
+  set?:any
 }) => {
   return (
     <Flex gap={0} w={"100%"}>
@@ -30,6 +32,7 @@ const SelectBox = ({
           fontWeight={800}
           fontSize={"sm"}
           textAlign={align ?? "start"}
+          onChange={(e)=>set(e.target.value)}
         >
           {children}
         </Select>
