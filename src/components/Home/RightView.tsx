@@ -20,18 +20,22 @@ import { useAppCtx } from "../../contexts/app.context";
 import GlobalChatBox from "./Global/GlobalChatBox";
 import TerminalBox from "./Terminal/TerminalBox";
 import HealthBox from "./Health/HealthBox";
-import { useState } from "react";
+import {  useEffect, useState } from "react";
 import InputTeb from "../Input/Input";
 import Btn from "../Buttons/Btn";
-import { trimWords } from "../../lib/app.fun";
+import { convertTokeneformatEther, trimWords } from "../../lib/app.fun";
 import Revive from "./Health/Revive";
-import { useAppKitAccount, useDisconnect } from "@reown/appkit/react";
+import { useAppKitAccount } from "@reown/appkit/react";
 import EVMConnectBTN from "../Buttons/EVMConnectBTN";
 import BriveBox from "./Bribe/BriveBox";
+import useGetTokenBalance from "../../hooks/token/useGetTokenBalance";
+import Cookies from "js-cookie";
 
 const RightView = () => {
   const { address, isConnected } = useAppKitAccount();
-  const { disconnect } = useDisconnect();
+  const { tokenBalance } = useGetTokenBalance();
+  const { disconnectUser } = useAppCtx();
+
   const {
     showTipAgent,
     setsTipAgent,
@@ -40,7 +44,17 @@ const RightView = () => {
     selectedRevaiveItem,
     setGlobalMessages,
     globalMessages,
+    updateJwt
   } = useAppCtx();
+  const jwt = Cookies.get("token");
+
+
+  useEffect(() => {
+    if (isConnected && jwt) {
+      updateJwt(jwt);
+     
+    }
+  }, [isConnected]);
 
   const [inputvalue, setInputValue] = useState("");
   const handleSend = () => {
@@ -52,6 +66,7 @@ const RightView = () => {
       setInputValue(""); // Clear the input after sending
     }
   };
+
   return (
     <Flex
       border={`0.5px solid ${brandColors.stroke}`}
@@ -93,7 +108,7 @@ const RightView = () => {
                   <Text color={brandColors.stroke} fontWeight={700}>
                     {trimWords(address?.toString(), 6)}
                   </Text>
-                  <Btn cta={disconnect} fontSize="14px">
+                  <Btn cta={disconnectUser} fontSize="14px">
                     Disconnect
                   </Btn>
                 </Stack>
@@ -170,17 +185,13 @@ const RightView = () => {
               send
             </Button> */}
           </Flex>
-        ) : isConnected && sectionType == "bribe" ? (
-          <Stack flex={1}>
-            <Btn cta={() => setsTipAgent(true)}>Pay to Bribe</Btn>
-          </Stack>
         ) : null}
         {!isConnected ? <EVMConnectBTN /> : null}
 
         <Flex justify={"space-between"} fontFamily={"secondary"}>
           <Flex align={"center"} gap={0}>
             <Text fontSize={"sm"} fontWeight={500} textTransform={"uppercase"}>
-              $host: $0.01
+              $host: ${tokenBalance?.data ?convertTokeneformatEther(tokenBalance?.data):0}
             </Text>
           </Flex>
 

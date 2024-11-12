@@ -8,12 +8,14 @@ const Btn = ({ children ,
   color,
   fontSize,
   px,
+  isDisable= false
 
 }: { children: ReactNode ,
-  cta?: () => void;
+  cta?:  any;
   color?:string;
   fontSize?: string;
   px?:string| number;
+  isDisable?: boolean
 
 }) => {
   const [hover, setHover] = useState(false)
@@ -23,8 +25,9 @@ const Btn = ({ children ,
 
     onMouseEnter={()=>setHover(true)}
     onMouseLeave={()=>setHover(false)}
+    opacity={isDisable? .5:1}
 
-    onClick={cta}
+    onClick={()=>{isDisable ? null: cta()}}
     >
       <Flex
         gap={0}

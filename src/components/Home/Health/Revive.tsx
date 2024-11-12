@@ -1,13 +1,104 @@
-import { Flex, Progress, Stack, Text } from "@chakra-ui/react";
+import { Flex, Progress, Stack, Text, useToast } from "@chakra-ui/react";
 import { brandColors } from "../../../theme/app.theme";
 import Btn from "../../Buttons/Btn";
 import { useAppCtx } from "../../../contexts/app.context";
 import InputGropedTab from "../../Input/InputGropedTab";
 import { useState } from "react";
+import { useWriteContract } from "wagmi";
+import { parseEther } from "viem";
+import { HOST_CONTRACT } from "../../../contracts/host.contract.abi";
+import { useAppKitAccount } from "@reown/appkit/react";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosPrivate from "../../../hooks/usePrivateAxios";
+import { waitForTransactionReceipt } from "wagmi/actions";
+import { evm_config } from "../../Providers/EvmWalletProvider";
 
 const Revive = () => {
-  const { selectedRevaiveItem } = useAppCtx();
+  const { selectedRevaiveItem, setSelectedReviveItem ,setDisableAction,disableAction} = useAppCtx();
   const [amount, setAmount] = useState<any>(null);
+  const { writeContractAsync } = useWriteContract();
+  const toast = useToast();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { address } = useAppKitAccount();
+
+  const { mutate: Rivive } = useMutation({
+    mutationFn: (variables: {}) => {
+      const res = axiosPrivate.post(`/revive`, variables);
+      return res;
+    },
+    onSuccess: () => {
+      toast({
+        title: "Success!",
+        position: "top",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    setDisableAction(false)
+
+    },
+    onError: (err) => {
+    setDisableAction(false)
+
+      console.error(err);
+      toast({
+        title: "Rivive failed",
+        description: "Something went wrong!",
+        position: "top",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    },
+  });
+
+  const revive = async () => {
+    setDisableAction(true)
+
+    try {
+      const transaction: any = await writeContractAsync({
+        abi: HOST_CONTRACT.ABI,
+        address: HOST_CONTRACT.ADDRESS as `0x${string}`,
+        functionName: "transfer",
+        args: [import.meta.env.VITE_BANK, parseEther(amount.toString())],
+      });
+
+      const res = await transaction;
+      if (res) {
+
+
+        const receipt = await waitForTransactionReceipt(evm_config, {
+          hash: res, // Use the hash from the transaction object
+        });
+        if (receipt) {
+          Rivive({
+            txnHash: res,
+            senderWallet: address,
+            amount: amount,
+            agentId: 1,
+          });
+          setAmount(null);
+          setSelectedReviveItem({});
+
+        }
+      
+      }
+      console.log(transaction);
+    } catch (error) {
+    setDisableAction(false)
+
+      toast({
+        title: "Transaction failed. Please try again.",
+        description: "Something went wrong!",
+        position: "top",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      console.error("Transaction error:", error);
+    }
+  };
 
   return (
     <Stack
@@ -37,10 +128,10 @@ const Revive = () => {
       </Stack>
       <Flex gap={2} mt={4}>
         <Flex flex={1}>
-          <InputGropedTab set={setAmount} value={amount}/>
+          <InputGropedTab set={setAmount} value={amount} />
         </Flex>
         <Stack flex={1}>
-          <Btn>Add to Revive</Btn>
+          <Btn cta={revive} isDisable={disableAction}>Add to Revive</Btn>
         </Stack>
       </Flex>
     </Stack>

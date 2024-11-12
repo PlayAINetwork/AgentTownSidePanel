@@ -1,60 +1,102 @@
-import { Flex, Stack, Text } from "@chakra-ui/react";
+import { Flex, Stack, Text, useToast } from "@chakra-ui/react";
 import { useAppCtx } from "../../../contexts/app.context";
 import { brandColors } from "../../../theme/app.theme";
 import Btn from "../../Buttons/Btn";
 import InputGropedTab from "../../Input/InputGropedTab";
 import SelectBox from "../../Input/SelectBox";
-import { useBalance, useSendTransaction, useWaitForTransactionReceipt } from "wagmi";
+import {
+
+  useWriteContract,
+} from "wagmi";
 import { parseEther } from "viem";
-import { useState } from "react";
-import { agentList } from "../../../DB";
+// import { agentList } from "../../../DB";
+import { HOST_CONTRACT } from "../../../contracts/host.contract.abi";
+import useTip from "../../../hooks/useTip";
+import { useAppKitAccount } from "@reown/appkit/react";
+import useGetAgents from "../../../hooks/useGetAgents";
+import { waitForTransactionReceipt } from "wagmi/actions";
+import { evm_config } from "../../Providers/EvmWalletProvider";
 
 const AgentTip = () => {
-  const { showTipAgent, setsTipAgent } = useAppCtx();
-  const { sendTransaction } = useSendTransaction();
-  const [selectedAgent, setSelectedAgent] = useState(null);
-  const [amount, setAmount] = useState<any>(null);
-  const [statusMessage, setStatusMessage] = useState("");
+  const { showTipAgent,setDisableAction,disableAction, setSelectedAgent,setAmount,setsTipAgent ,selectedAgent, amount} = useAppCtx();
+  const { writeContractAsync } = useWriteContract();
+  const { agentList } = useGetAgents();
 
- 
+  const toast = useToast();
+  const { address } = useAppKitAccount();
 
-  const result = useBalance({
-    address: "0xefE27b866c771f37e204A7dCD10Ed70490Dc1939"
-  });
 
-  console.log(result, "dfd", selectedAgent);
+
+  const { tip } = useTip();
+
+  console.log(selectedAgent, agentList);
 
   const sendTip = async () => {
-    setStatusMessage(""); // Clear previous message
-    try {
-      const transaction:any = await sendTransaction({
-        to: selectedAgent,
-        value: parseEther(amount.toString())
+    setDisableAction(true)
+    if (selectedAgent === null) {
+      toast({
+        title: "select your  agent",
+
+        position: "top",
+        status: "info",
+        duration: 3000,
+        isClosable: true,
       });
-      
-      // Wait for transaction confirmation
-if(transaction?.hash){
+      return false;
+    } else if (amount === null || amount === "" || amount === 0) {
+      toast({
+        title: "enter  valid amount",
 
-  const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({
-    hash: transaction.hash, // The transaction hash from sendTransaction
-  });
+        position: "top",
+        status: "info",
+        duration: 3000,
+        isClosable: true,
+      });
+      return false;
+    }
 
-  if (isLoading) {
-    setStatusMessage("Transaction in progress...");
-  }
+    try {
+      const transaction: any = await writeContractAsync({
+        abi: HOST_CONTRACT.ABI,
+        address: HOST_CONTRACT.ADDRESS as `0x${string}`,
+        functionName: "transfer",
+        args: [import.meta.env.VITE_BANK, parseEther(amount.toString())],
+      });
 
-  if (isSuccess) {
-    setStatusMessage("Transaction successful!");
-  }
+      // Get the provider from wagmi
 
-  if (isError) {
-    setStatusMessage("Transaction failed. Please try again.");
-  }
-}
-      // await transaction.wait();
-      // setStatusMessage("Transaction successful!");
+      const res = await transaction;
+      console.log("res", res);
+
+      if (res) {
+        const receipt = await waitForTransactionReceipt(evm_config, {
+          hash: res, // Use the hash from the transaction object
+        });
+
+        if (receipt) {
+          console.log(receipt, "receipt");
+
+          const resData: any = await tip({
+            txnHash: res,
+            senderWallet: address,
+            amount: amount,
+            agentId: selectedAgent,
+          });
+          console.log(resData, "dsfd");
+
+          
+        }
+      }
     } catch (error) {
-      setStatusMessage("Transaction failed. Please try again.");
+      setDisableAction(false)
+      toast({
+        title: "Transaction failed. Please try again.",
+        description: "Something went wrong!",
+        position: "top",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
       console.error("Transaction error:", error);
     }
   };
@@ -75,8 +117,8 @@ if(transaction?.hash){
 
       <Flex gap={2}>
         <SelectBox set={setSelectedAgent}>
-          {agentList?.map((agent) => (
-            <option key={agent.wallet} value={agent.wallet}>
+          {agentList?.map((agent: any) => (
+            <option key={agent.id} value={agent.id}>
               {agent.name}
             </option>
           ))}
@@ -91,17 +133,9 @@ if(transaction?.hash){
           </Btn>
         </Stack>
         <Stack flex={1}>
-          <Btn cta={() => sendTip()}>
-            send
-          </Btn>
+          <Btn  cta={() => sendTip()} isDisable={disableAction}>send</Btn>
         </Stack>
       </Flex>
-
-      {statusMessage && (
-        <Text color={statusMessage.includes("successful") ? "green.500" : "red.500"}>
-          {statusMessage}
-        </Text>
-      )}
     </Stack>
   );
 };

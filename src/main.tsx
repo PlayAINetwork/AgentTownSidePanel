@@ -9,11 +9,11 @@ import { EvmWalletProvider } from "./components/Providers/EvmWalletProvider";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
 
-    <AppProvider>
       <EvmWalletProvider>
+    <AppProvider>
 
       <RouterProvider router={router} />
-      </EvmWalletProvider>
     </AppProvider>
+      </EvmWalletProvider>
   </StrictMode>
 );
