@@ -32,7 +32,6 @@ const AgentTip = () => {
   console.log(selectedAgent, agentList);
 
   const sendTip = async () => {
-    setDisableAction(true)
     if (selectedAgent === null) {
       toast({
         title: "select your  agent",
@@ -62,6 +61,7 @@ const AgentTip = () => {
         functionName: "transfer",
         args: [import.meta.env.VITE_BANK, parseEther(amount.toString())],
       });
+      setDisableAction(true)
 
       // Get the provider from wagmi
 

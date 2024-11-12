@@ -109,7 +109,6 @@ const BriveBox = () => {
   });
 
   const payBribe = async () => {
-    setDisableAction(true)
     if (
       card?.id === 1001 &&
       card?.id === 1003 &&
@@ -145,6 +144,9 @@ const BriveBox = () => {
     }
 
     try {
+      setDisableAction(true)
+
+
       const transaction: any = await writeContractAsync({
         abi: HOST_CONTRACT.ABI,
         address: HOST_CONTRACT.ADDRESS as `0x${string}`,
