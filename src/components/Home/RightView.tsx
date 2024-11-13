@@ -158,7 +158,7 @@ const RightView = () => {
         ) : null}
         {isConnected &&
         sectionType == "health" &&
-        selectedRevaiveItem?.title ? (
+        selectedRevaiveItem?.id ? (
           <Revive />
         ) : null}
 

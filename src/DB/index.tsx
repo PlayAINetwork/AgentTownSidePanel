@@ -37,3 +37,26 @@ export const agentList = [
       wallet: "0x10FA79b1cfC6F2A98B26926EF434c1474a2cF2E2"
     }
   ];
+
+  export const agentImages = [
+    {
+      id: 1,
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmLEAw4jnriK-Plwe-NyeAjE2IYoWweul2IA&s"
+    },
+    {
+      id: 8,
+      
+      image: "https://i1.sndcdn.com/artworks-46Iy8SxkMaxepPTL-u5icpA-t500x500.jpg"
+    },
+    {
+      id: 11,
+      
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmLEAw4jnriK-Plwe-NyeAjE2IYoWweul2IA&s"
+    },
+    {
+      id: 2,
+      image: "https://i.seadn.io/s/raw/files/fb365117673df6e197f0a7d89aebc2f6.png?auto=format&dpr=1&w=1000"
+
+    },
+    
+  ];

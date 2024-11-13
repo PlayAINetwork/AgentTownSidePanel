@@ -123,6 +123,8 @@ const BriveBox = () => {
         duration: 3000,
         isClosable: true,
       });
+      return false
+
     } else if (card?.id === 1001 && selecteTodAgent == null) {
       toast({
         title: "select To  agent",
@@ -132,6 +134,8 @@ const BriveBox = () => {
         duration: 3000,
         isClosable: true,
       });
+      return false
+
     } else if (card?.id === 1004 && promt === null) {
       toast({
         title: "Enter Promte",
@@ -141,10 +145,11 @@ const BriveBox = () => {
         duration: 3000,
         isClosable: true,
       });
+      return false
+
     }
 
     try {
-      setDisableAction(true)
 
 
       const transaction: any = await writeContractAsync({
@@ -153,6 +158,7 @@ const BriveBox = () => {
         functionName: "transfer",
         args: [import.meta.env.VITE_BANK, parseEther(card?.tokens?.toString())],
       });
+      setDisableAction(true)
 
       const res = await transaction;
       console.log("res", res);

@@ -12,7 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 import { waitForTransactionReceipt } from "wagmi/actions";
 import { evm_config } from "../../Providers/EvmWalletProvider";
-
+import millify from "millify";
 const Revive = () => {
   const { selectedRevaiveItem, setSelectedReviveItem ,setDisableAction,disableAction} = useAppCtx();
   const [amount, setAmount] = useState<any>(null);
@@ -54,9 +54,10 @@ const Revive = () => {
   });
 
   const revive = async () => {
-    setDisableAction(true)
 
     try {
+    setDisableAction(true)
+
       const transaction: any = await writeContractAsync({
         abi: HOST_CONTRACT.ABI,
         address: HOST_CONTRACT.ADDRESS as `0x${string}`,
@@ -111,19 +112,19 @@ const Revive = () => {
       p={4}
       boxShadow={" 3px 3px 0px 0px rgba(30, 52, 69, 1);"}
     >
-      <Text mb={3} fontWeight={800}>
-        Revive {selectedRevaiveItem?.title}
+      <Text mb={3} fontWeight={800} textTransform={"uppercase"}>
+        Revive {selectedRevaiveItem?.name}
       </Text>
       <Stack gap={2}>
         <Progress
           fill={brandColors.secondary}
           bg={brandColors.primary200}
           size="lg"
-          value={20}
+          value={((selectedRevaiveItem?.revivalPool / selectedRevaiveItem?.goalAmount) * 100)}
         />
         <Flex justify={"space-between"}>
-          <Text fontWeight={700}>99k left</Text>
-          <Text fontWeight={700}>1m to revive</Text>
+          <Text fontWeight={700}>{millify(selectedRevaiveItem?.revivalPool)} left</Text>
+          <Text fontWeight={700}>{millify(selectedRevaiveItem?.goalAmount)} to revive</Text>
         </Flex>
       </Stack>
       <Flex gap={2} mt={4}>
