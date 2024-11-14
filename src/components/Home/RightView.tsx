@@ -20,7 +20,7 @@ import { useAppCtx } from "../../contexts/app.context";
 import GlobalChatBox from "./Global/GlobalChatBox";
 import TerminalBox from "./Terminal/TerminalBox";
 import HealthBox from "./Health/HealthBox";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InputTeb from "../Input/Input";
 import Btn from "../Buttons/Btn";
 import { convertTokeneformatEther, trimWords } from "../../lib/app.fun";
@@ -44,15 +44,13 @@ const RightView = () => {
     selectedRevaiveItem,
     setGlobalMessages,
     globalMessages,
-    updateJwt
+    updateJwt,
   } = useAppCtx();
   const jwt = Cookies.get("token");
-
 
   useEffect(() => {
     if (isConnected && jwt) {
       updateJwt(jwt);
-     
     }
   }, [isConnected]);
 
@@ -87,12 +85,12 @@ const RightView = () => {
         py={5}
         boxShadow={` 3px 3px 0px 0px ${brandColors.stroke};`}
       >
-        <Image src={assets.LOGOS.logo} w={"130px"} />
+        <Image src={assets.LOGOS.logo} w={"170px"} />
         {isConnected ? (
           <Popover>
             <PopoverTrigger>
               <WrapItem cursor={"pointer"}>
-                <Image src={assets.ICONS.icon_Profile} />
+                <Image src={assets.ICONS.icon_Profile} w={"40px"} />
 
                 {/* <Avatar name="Dan Abrahmov" src={walletIcon} /> */}
               </WrapItem>
@@ -152,13 +150,11 @@ const RightView = () => {
         )}
       </Stack>
 
-      <Stack pos={"relative"} px={4} pb={2}>
+      <Stack pos={"relative"} px={4} >
         {isConnected && showTipAgent && sectionType == "global" ? (
           <AgentTip />
         ) : null}
-        {isConnected &&
-        sectionType == "health" &&
-        selectedRevaiveItem?.id ? (
+        {isConnected && sectionType == "health" && selectedRevaiveItem?.id ? (
           <Revive />
         ) : null}
 
@@ -191,7 +187,10 @@ const RightView = () => {
         <Flex justify={"space-between"} fontFamily={"secondary"}>
           <Flex align={"center"} gap={0}>
             <Text fontSize={"sm"} fontWeight={500} textTransform={"uppercase"}>
-              $host: ${tokenBalance?.data ?convertTokeneformatEther(tokenBalance?.data):0}
+              $host: $
+              {tokenBalance?.data
+                ? convertTokeneformatEther(tokenBalance?.data)
+                : 0}
             </Text>
           </Flex>
 
@@ -200,6 +199,29 @@ const RightView = () => {
           </Button>
         </Flex>
       </Stack>
+      <Flex
+        gap={4}
+        w={"100%"}
+        px={4}
+        py={2}
+        boxShadow={" 0px -3px 0px 0px rgba(0, 0, 0, 1)"}
+        bg={"rgba(247, 242, 234, 1)"}
+      >
+        <Text
+          fontWeight={800}
+          // css={{ textTransform: "uppercase" }}
+          fontSize={"md"}
+          whiteSpace={"nowrap"}
+        >
+          {" "}
+          Powered by
+        </Text>
+        <Flex w={"100%"} py={2} justifyContent={"space-between"}>
+          <Image src={assets.LOGOS.logo_4wall} />
+          <Image src={assets.ICONS.icon_x} />
+          <Image src={assets.LOGOS.logo_playai} />
+        </Flex>
+      </Flex>
     </Flex>
   );
 };
