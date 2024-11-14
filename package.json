@@ -32,6 +32,7 @@
     "millify": "^6.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-nice-avatar": "^1.5.0",
     "react-router-dom": "^6.27.0",
     "viem": "^2.21.40",
     "wagmi": "^2.12.25"

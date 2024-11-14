@@ -30,12 +30,13 @@ import EVMConnectBTN from "../Buttons/EVMConnectBTN";
 import BriveBox from "./Bribe/BriveBox";
 import useGetTokenBalance from "../../hooks/token/useGetTokenBalance";
 import Cookies from "js-cookie";
+import Avatar, { genConfig } from 'react-nice-avatar'
 
 const RightView = () => {
   const { address, isConnected } = useAppKitAccount();
   const { tokenBalance } = useGetTokenBalance();
   const { disconnectUser } = useAppCtx();
-
+  const config = genConfig(address)
   const {
     showTipAgent,
     setsTipAgent,
@@ -90,8 +91,8 @@ const RightView = () => {
           <Popover>
             <PopoverTrigger>
               <WrapItem cursor={"pointer"}>
-                <Image src={assets.ICONS.icon_Profile} w={"40px"} />
-
+                {/* <Image src={assets.ICONS.icon_Profile} w={"40px"} /> */}
+                <Avatar style={{ width: '50px', height: '50px' }} {...config} />
                 {/* <Avatar name="Dan Abrahmov" src={walletIcon} /> */}
               </WrapItem>
             </PopoverTrigger>
@@ -217,9 +218,9 @@ const RightView = () => {
           Powered by
         </Text>
         <Flex w={"100%"} py={2} justifyContent={"space-between"}>
-          <Image src={assets.LOGOS.logo_4wall} />
+          <Image cursor={"pointer"} onClick={()=> window.open("https://beta.4wall.ai/","_blaint")} src={assets.LOGOS.logo_4wall} />
           <Image src={assets.ICONS.icon_x} />
-          <Image src={assets.LOGOS.logo_playai} />
+          <Image src={assets.LOGOS.logo_playai} cursor={"pointer"} onClick={()=> window.open("https://playai.network/","_blaint")} />
         </Flex>
       </Flex>
     </Flex>
