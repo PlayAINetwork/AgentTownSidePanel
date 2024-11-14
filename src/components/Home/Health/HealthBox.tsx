@@ -10,7 +10,28 @@ const HealthBox = () => {
   const { agentList,agentListLoding } = useGetAgents();
 
   return (
-    <Stack gap={4}>
+    <Stack pos={"relative"} h={"100%"}>
+ <Stack
+     pos={"absolute"}
+     w={"100%"}
+     h={"100%"}
+    zIndex={12}
+    align={"center"}
+    justify={"center"}
+     >
+<Text
+         fontWeight={800}
+         // css={{ textTransform: "uppercase" }}
+         fontSize={"md"}
+         whiteSpace={"nowrap"}
+       >
+         {" "}
+         Coming Soon
+       </Text>
+     </Stack>
+    <Stack gap={4}
+     filter={"blur(6px)"}
+    >
 
       {
       agentListLoding?
@@ -28,6 +49,9 @@ const HealthBox = () => {
         <HealthItem data={list} key={key}/>
       ))}
     </Stack>
+
+    </Stack>
+
   );
 };
 

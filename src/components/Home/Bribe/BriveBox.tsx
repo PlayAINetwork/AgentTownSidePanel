@@ -201,8 +201,31 @@ const BriveBox = () => {
   };
 
   return (
-    <Stack justifyContent={"space-between"} h={"100%"}>
-      <Stack gap={4}>
+    <Stack pos={"relative"} h={"100%"}>
+       <Stack
+     pos={"absolute"}
+     w={"100%"}
+     h={"100%"}
+    zIndex={12}
+    align={"center"}
+    justify={"center"}
+     >
+<Text
+         fontWeight={800}
+         // css={{ textTransform: "uppercase" }}
+         fontSize={"md"}
+         whiteSpace={"nowrap"}
+       >
+         {" "}
+         Coming Soon
+       </Text>
+     </Stack>
+    <Stack justifyContent={"space-between"} h={"100%"} position={"relative"}
+    filter={"blur(6px)"}
+    
+    >
+     
+      <Stack gap={4} h={"100%"}>
         <Grid templateColumns="repeat(2, 1fr)" gap={6} rowGap={8} pt={4}>
           {Cards?.map((item) => (
             <BriveCard item={item} card={card} setCard={setCard} />
@@ -260,6 +283,9 @@ const BriveBox = () => {
       </Stack>
       {isConnected ? <Btn cta={payBribe} isDisable={disableAction}>Pay to Bribe</Btn> : null}
     </Stack>
+
+    </Stack>
+
   );
 };
 
