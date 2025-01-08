@@ -197,7 +197,7 @@ const RightView = () => {
             <Stack flex={1}>
               <Btn cta={() => handleSend()}>send</Btn>
             </Stack>
-            {!showTipAgent && sectionType == "global" ? (
+            {/* {!showTipAgent && sectionType == "global" ? (
               <Stack flex={1}>
                 <Btn
                   color={"rgba(29, 155, 240, 1)"}
@@ -206,7 +206,7 @@ const RightView = () => {
                   Tip
                 </Btn>
               </Stack>
-            ) : null}
+            ) : null} */}
 
             {/* <Button w={"max-content"} h={"100%"} size="sm" onClick={() => ""}>
               send
