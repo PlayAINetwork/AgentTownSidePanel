@@ -20,7 +20,7 @@ import { useAppCtx } from "../../contexts/app.context";
 import GlobalChatBox from "./Global/GlobalChatBox";
 import TerminalBox from "./Terminal/TerminalBox";
 import HealthBox from "./Health/HealthBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputTeb from "../Input/Input";
 import Btn from "../Buttons/Btn";
 import { trimWords } from "../../lib/app.fun";
@@ -28,12 +28,15 @@ import Revive from "./Health/Revive";
 import BriveBox from "./Bribe/BriveBox";
 import { SolWalletConnectBtn } from "../Buttons/SolConnectBTN";
 import { useWallet } from "@solana/wallet-adapter-react";
+import Drops from "./Drops/Drops";
+const TOKEN_ADDRESS = "27yzfJSNvYLBjgSNbMyXMMUWzx6T9q4B9TP8Jt8MZ9mL";
 
 const RightView = () => {
   // const { address, isConnected } = useAppKitAccount();
-  const { connected ,publicKey,disconnect} = useWallet();
+  const { connected, publicKey, disconnect } = useWallet();
+  const [tokenData, setTokenData] = useState<any>(null);
 
-  const address = publicKey?.toString()
+  const address = publicKey?.toString();
 
   // const { disconnect } = useDisconnect();
   const {
@@ -56,6 +59,41 @@ const RightView = () => {
       setInputValue(""); // Clear the input after sending
     }
   };
+
+
+
+
+  useEffect(() => {
+    const fetchTokenData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.dexscreener.com/latest/dex/tokens/${TOKEN_ADDRESS}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch token data");
+        }
+        const data = await response.json();
+
+        if (data.pairs && data.pairs.length > 0) {
+          // Sort by volume and get the most liquid pair
+          const mostLiquidPair = data.pairs.sort(
+            (a: any, b: any) => parseFloat(b.priceUsd) - parseFloat(a.priceUsd)
+          )[0];
+          setTokenData(mostLiquidPair);
+        } else {
+          console.log("No trading pairs found");
+        }
+      } catch (err: any) {
+        console.log(err.message);
+      }
+    };
+
+    fetchTokenData();
+    const interval = setInterval(fetchTokenData, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+
   return (
     <Flex
       border={`0.5px solid ${brandColors.stroke}`}
@@ -122,11 +160,13 @@ const RightView = () => {
       <Stack flex={1} overflow={"auto"} px={4} pb={2}>
         {sectionType == "bribe" ? (
           <BriveBox />
-        ) : (
+        ) : sectionType == "drops" ? (
+          <Drops />
+        ): (
           <Stack
             h={"100%"}
             overflow={"auto"}
-            p={sectionType == "terminal" ?0 :4}
+            p={sectionType == "terminal" ? 0 : 4}
             bg={brandColors.primary100}
             boxShadow={" 3px 3px 0px 0px rgba(30, 52, 69, 1);"}
           >
@@ -136,7 +176,7 @@ const RightView = () => {
               <HealthBox />
             ) : sectionType == "terminal" ? (
               <TerminalBox />
-            ) : null}
+            )  : null}
           </Stack>
         )}
       </Stack>
@@ -145,9 +185,7 @@ const RightView = () => {
         {connected && showTipAgent && sectionType == "global" ? (
           <AgentTip />
         ) : null}
-        {connected &&
-        sectionType == "health" &&
-        selectedRevaiveItem?.title ? (
+        {connected && sectionType == "health" && selectedRevaiveItem?.title ? (
           <Revive />
         ) : null}
 
@@ -184,7 +222,9 @@ const RightView = () => {
         <Flex justify={"space-between"} fontFamily={"secondary"}>
           <Flex align={"center"} gap={0}>
             <Text fontSize={"sm"} fontWeight={500} textTransform={"uppercase"}>
-              $host: $0.01
+              TOPDWAG: ${tokenData?.priceUsd
+              ? parseFloat(tokenData?.priceUsd).toFixed(6)
+              : 0.0}
             </Text>
           </Flex>
 
