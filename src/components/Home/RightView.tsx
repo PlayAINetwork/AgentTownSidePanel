@@ -25,13 +25,17 @@ import InputTeb from "../Input/Input";
 import Btn from "../Buttons/Btn";
 import { trimWords } from "../../lib/app.fun";
 import Revive from "./Health/Revive";
-import { useAppKitAccount, useDisconnect } from "@reown/appkit/react";
-import EVMConnectBTN from "../Buttons/EVMConnectBTN";
 import BriveBox from "./Bribe/BriveBox";
+import { SolWalletConnectBtn } from "../Buttons/SolConnectBTN";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const RightView = () => {
-  const { address, isConnected } = useAppKitAccount();
-  const { disconnect } = useDisconnect();
+  // const { address, isConnected } = useAppKitAccount();
+  const { connected ,publicKey,disconnect} = useWallet();
+
+  const address = publicKey?.toString()
+
+  // const { disconnect } = useDisconnect();
   const {
     showTipAgent,
     setsTipAgent,
@@ -73,7 +77,7 @@ const RightView = () => {
         boxShadow={` 3px 3px 0px 0px ${brandColors.stroke};`}
       >
         <Image src={assets.LOGOS.logo} w={"130px"} />
-        {isConnected ? (
+        {connected ? (
           <Popover>
             <PopoverTrigger>
               <WrapItem cursor={"pointer"}>
@@ -122,7 +126,7 @@ const RightView = () => {
           <Stack
             h={"100%"}
             overflow={"auto"}
-            p={4}
+            p={sectionType == "terminal" ?0 :4}
             bg={brandColors.primary100}
             boxShadow={" 3px 3px 0px 0px rgba(30, 52, 69, 1);"}
           >
@@ -138,16 +142,16 @@ const RightView = () => {
       </Stack>
 
       <Stack pos={"relative"} px={4} pb={2}>
-        {isConnected && showTipAgent && sectionType == "global" ? (
+        {connected && showTipAgent && sectionType == "global" ? (
           <AgentTip />
         ) : null}
-        {isConnected &&
+        {connected &&
         sectionType == "health" &&
         selectedRevaiveItem?.title ? (
           <Revive />
         ) : null}
 
-        {isConnected && sectionType == "global" ? (
+        {connected && sectionType == "global" ? (
           <Flex w={"100%"} gap={1} align={"center"}>
             <Stack flex={2}>
               <InputTeb inputvalue={inputvalue} setInputValue={setInputValue} />
@@ -170,12 +174,12 @@ const RightView = () => {
               send
             </Button> */}
           </Flex>
-        ) : isConnected && sectionType == "bribe" ? (
+        ) : connected && sectionType == "bribe" ? (
           <Stack flex={1}>
             <Btn cta={() => setsTipAgent(true)}>Pay to Bribe</Btn>
           </Stack>
         ) : null}
-        {!isConnected ? <EVMConnectBTN /> : null}
+        {!connected ? <SolWalletConnectBtn /> : null}
 
         <Flex justify={"space-between"} fontFamily={"secondary"}>
           <Flex align={"center"} gap={0}>

@@ -5,14 +5,18 @@ import AppProvider from "./components/Providers/AppProvider";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes/routes";
 import { EvmWalletProvider } from "./components/Providers/EvmWalletProvider";
+import { SolanaWalletProvider } from "./components/Providers/SolanaWalletProvider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
 
     <AppProvider>
       <EvmWalletProvider>
+      <SolanaWalletProvider>
 
       <RouterProvider router={router} />
+      </SolanaWalletProvider>
+
       </EvmWalletProvider>
     </AppProvider>
   </StrictMode>

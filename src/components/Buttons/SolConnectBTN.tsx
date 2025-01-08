@@ -70,60 +70,7 @@ export function SolWalletConnectBtn() {
       }}
     >
       {" "}
-      {/* <Button
-        gap={1.5}
-        variant={"secondary"}
-        w={"full"}
-        border={"none"}
-        fontSize={".8rem"}
-        {...btnSX}
-        borderRadius={"0"}
-        borderBottom={
-          menuOpen && publicKey ? "1px solid var(--primary)" : "none"
-        }
-        size={"sm"}
-      >
-        {walletIcon ? (
-          <Image src={walletIcon} alt="sds" boxSize={iconSize ?? 5} />
-        ) : (
-          <Image
-            src={assets.LOGOS.logo_solana}
-            alt="solana_wallet"
-            boxSize={iconSize ?? 5}
-          />
-        )}
-        { content}
-        {connectedSolAddress && (
-          <Flex ml={"auto"} alignItems={"center"} gap={2}>
-            
-            {publicKey ? (
-              !copied ? (
-                <Image
-                  src={assets.ICONS.icon_copy}
-                  alt=""
-                  onClick={async (e) => {
-                    e.stopPropagation();
-                    await navigator.clipboard.writeText(publicKey.toBase58());
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 500);
-                  }}
-                  boxSize={4}
-                />
-              ) : (
-                <Box>
-                  <Text
-                    fontSize={".7rem"}
-                    fontFamily={"var(--ff-subtitle)"}
-                       css={{ textTransform: 'uppercase' }}
-                  >
-                    Copied
-                  </Text>
-                </Box>
-              )
-            ) : null}
-          </Flex>
-        )}
-      </Button> */}
+     
      
         
         <Flex gap={0}
