@@ -1,4 +1,4 @@
-export const category = ["global","drops","bribe","health","terminal"]
+export const category = ["global","drops","terminal"]
 
 export const healtList = [
     {
