@@ -1,6 +1,6 @@
 // eventSourceWorker.js
 
-import { parseDataString, removeTimestamp } from "@/lib/utils";
+import { parseDataString, removeTimestamp } from "../lib/app.fun";
 
 // eventSourceWorker.js
 

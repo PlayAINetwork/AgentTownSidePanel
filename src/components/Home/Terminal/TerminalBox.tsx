@@ -453,7 +453,7 @@ const TerminalBox = () => {
 
   useEffect(() =>{
     const worker = new Worker(
-      new URL("../../worker/eventSourceWorker.ts", import.meta.url),
+      new URL("../../../worker/eventSourceWorker.ts", import.meta.url),
       { type: "module" }
     );
 
