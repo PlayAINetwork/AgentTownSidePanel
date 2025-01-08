@@ -1,8 +1,11 @@
 import { Flex, Image, Stack, Text } from "@chakra-ui/react";
 import { assets } from "../../../assets";
 import Btn from "../../Buttons/Btn";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const Drops = () => {
+      const { connected } = useWallet();
+    
   return (
     <Stack justify={"space-between"} h={"100%"}>
       <Stack gap={0} flex={1} h={"100%"}>
@@ -170,9 +173,14 @@ const Drops = () => {
             communities.
           </Text>
         </Stack>
-        <Btn cta={() => window.open("https://pump.fun/", "_blenck")}>
-          BUY $TOPDWAG
-        </Btn>
+        {
+            connected?
+            <Btn cta={() => window.open("https://pump.fun/", "_blenck")}>
+            BUY $TOPDWAG
+          </Btn>
+          :null
+        }
+       
       </Stack>
     </Stack>
   );
