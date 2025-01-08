@@ -430,7 +430,7 @@ const TerminalBox = () => {
     const fetchOldLogs = async () => {
       try {
         const response = await axios.get(
-          "https://rogue-api.playai.network/olderlogs?page=1&limit=10"
+          "https://dawg-api.playai.network/olderlogs?page=1&limit=10"
         );
         const processedLogs = response?.data?.map((item: any) => {
           let outerData = { ...item };
@@ -468,7 +468,7 @@ const TerminalBox = () => {
     };
 
     worker.postMessage({
-      url: `https://rogue-api.playai.network/logs`,
+      url: `https://dawg-api.playai.network/logs`,
     });
 
     return () => {
